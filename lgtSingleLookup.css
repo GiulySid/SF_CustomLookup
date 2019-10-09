@@ -1,0 +1,13 @@
+.THIS .leftPaddingClass {
+    padding-left: 2rem;
+}
+ 
+.THIS .pillSize{
+    width:100%;
+}
+
+.THIS #lookup-pill-2 ul,
+.THIS #lookup-pill-2 ul li,
+.THIS #lookup-pill-2 ul li .slds-pill {
+    width: 100%
+}
