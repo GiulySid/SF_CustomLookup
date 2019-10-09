@@ -1,0 +1,24 @@
+public class ApexLookupController {
+    @AuraEnabled
+    public static List<SObject> fetchLookUpValues(String searchKeyWord, String ObjectName, List<String> searchFields,String filter) {
+        String searchKey = '%' + searchKeyWord + '%';
+        
+        List <SObject> returnList = new List <SObject>();
+        String sQuery = 'SELECT ';
+        sQuery += String.join(searchFields, ',');
+        sQuery += ' FROM '+ObjectName+' WHERE Name LIKE: searchKey '+(String.isBlank(filter) ? '' : filter)+' LIMIT 10';
+        
+        // Create a Dynamic SOQL Query For Fetch Record List with LIMIT 10  
+        List <SObject> lstOfRecords = null;
+        
+        try {
+            lstOfRecords = Database.query(sQuery);
+        }
+        catch(Exception exc) {
+            lstOfRecords = null;
+        }
+        
+        
+        return (lstOfRecords!=null && lstOfRecords.size()>0 ? lstOfRecords : new List<SObject>());
+    }
+}
